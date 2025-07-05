@@ -9,8 +9,8 @@ export interface Book {
   description: string;
   copies: number;
   available: boolean;
-
-  
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type Borrow = {
@@ -21,8 +21,9 @@ export type Borrow = {
     _id: string;
     title: string;
     bookImage?: string;
-  };
-
+  }; 
+  quantity: number;
+  dueDate: string;
 };
 
 
