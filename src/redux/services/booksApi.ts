@@ -6,7 +6,7 @@ import type { Book } from "../types";
 export const booksApi = createApi({
   reducerPath: "booksApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl: "https://library-management-api-ivory.vercel.app/api",
   }),
   tagTypes: ["Books"],
   endpoints: (builder) => ({

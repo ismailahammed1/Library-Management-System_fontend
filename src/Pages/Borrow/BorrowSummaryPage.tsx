@@ -4,8 +4,8 @@ import { useGetBorrowedBooksQuery } from '@/redux/services/borrowApi';
 import type { Borrow } from '@/redux/types';
 
 const BorrowSummaryPage = () => {
-const { data, isLoading, isError } = useGetBorrowedBooksQuery();
-const borrows: Borrow[] = data?.data ?? [];
+  const { data, isLoading, isError } = useGetBorrowedBooksQuery();
+  const borrows: Borrow[] = Array.isArray(data) ? data : data?.data ?? [];
 
   if (isLoading) {
     return (
@@ -26,13 +26,23 @@ const borrows: Borrow[] = data?.data ?? [];
       <h1 className="text-2xl font-bold mb-6">📚 Borrow Summary</h1>
 
       {borrows.length > 0 ? (
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {borrows.map((borrow, index) => (
-            <Card key={index}>
-              <CardContent className="p-4 space-y-2">
-                <div><strong>📖 Title:</strong> {borrow.book.title}</div>
-                <div><strong>🔢 ISBN:</strong> {borrow.book.isbn}</div>
-                <div><strong>📦 Total Borrowed:</strong> {borrow.quantity}</div>
+            <Card key={index} className="flex items-center gap-4 p-4 shadow-md border bg-white">
+              <div className="w-20 h-28 flex-shrink-0">
+                <img
+                  src={
+                    borrow.book?.bookImage ||
+                    (borrow.book?.isbn ? `https://covers.openlibrary.org/b/isbn/${borrow.book.isbn}-L.jpg` : "https://via.placeholder.com/80x112?text=No+Image")
+                  }
+                  alt={borrow.book?.title || "Book Cover"}
+                  className="w-full h-full object-cover rounded border"
+                />
+              </div>
+              <CardContent className="flex-1 space-y-2 p-0">
+                <div className="font-semibold text-base mb-1">{borrow.book.title}</div>
+                <div className="text-xs text-gray-600 mb-1"><strong>ISBN:</strong> {borrow.book.isbn}</div>
+                <div className="text-xs text-gray-600"><strong>Total Borrowed:</strong> {borrow.quantity}</div>
               </CardContent>
             </Card>
           ))}

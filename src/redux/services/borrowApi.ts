@@ -15,7 +15,7 @@ interface BorrowRequest {
 
 export const borrowApi = createApi({
   reducerPath: "borrowApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://library-management-api-ivory.vercel.app/api" }),
   tagTypes: ["Books", "Borrows"],
   endpoints: (builder) => ({
     getBorrowedBooks: builder.query<BorrowApiResponse, void>({
